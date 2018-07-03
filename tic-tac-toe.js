@@ -28,7 +28,7 @@ function clickedBox(event){
     checkWiner("player1");
     checkWiner("player2");
 
-    if (counter===9&&!checkWiner("player1")&&!checkWiner("player2")){
+    if (((score.totalRounds%2===0&&counter===9)||(score.totalRounds%2===1&&counter===10))&&!checkWiner("player1")&&!checkWiner("player2")){
         document.querySelector('.result').textContent = 'nobody won'
         document.querySelector('.hidden').classList.add('display');
     }
@@ -49,13 +49,13 @@ function checkWiner(player){
         (string.slice(0,1)+string.slice(2))===winnerArray[i] || 
         (string.slice(0,2)+string.slice(3))===winnerArray[i] ||
         string ==='12569'|| string==='23457' || string==='35678'||string ==='14589'){
+            score[player] += 1;
             document.querySelector('.result').textContent = 'winner is ' + player;
             document.querySelector('#'+player).textContent = score[player];
             document.querySelectorAll('.box').forEach(function(a){
                 a.removeEventListener('click',clickedBox);
             })
             document.querySelector('.hidden').classList.add('display');
-            score[player] +=1;
             return true;
         }
     }
