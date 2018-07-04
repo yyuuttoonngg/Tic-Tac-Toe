@@ -15,7 +15,7 @@ boxes.forEach(function(box){
     displayCurrentPlayer();
 });
 
-document.querySelector('button').addEventListener('click',resetGame);
+document.querySelector('.button').addEventListener('click',resetGame);
 
 function clickedBox(event){
     event.target.removeEventListener('click',clickedBox);
