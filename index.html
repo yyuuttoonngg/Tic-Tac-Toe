@@ -15,6 +15,7 @@
     <main>
         <section class ="player1-section">
             <p>player1</p>
+            <img class= "logo"src="images/player1.png" alt="">
             <p>score: <span id="player1">0</span></p>
         </section>
             
@@ -34,20 +35,26 @@
                 <p class="box">8</p>
                 <p class="box">9</p>
             </div>
-            <div class = "currentplayer">playing</div>
+
+            <div class="gameinfo">
+                <div class = "currentplayer">playing <span ></span> </div>
+                <div class ="result-and-reset hidden">
+                    <p class="result"></p>
+                    <p class ="button">reset</p>
+                </div>
+            </div>
+            
         </section>   
 
         <section class ="player2-section">
             <p>player 2</p>
+            <img class= "logo" src="images/player2.png" alt="">
             <p>score: <span id="player2">0</span></p>
         </section>
 
            
     </main>
-    <div class ="hidden">
-        <p class="result"></p>
-        <p class ="button">reset</p>
-    </div>
+
 
     <footer>created by yyuuttoonngg</footer>
     <script src="tic-tac-toe.js"></script>

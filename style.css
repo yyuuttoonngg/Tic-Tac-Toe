@@ -7,13 +7,13 @@ main{
     justify-content: center;
 }
 section {
-    background-color:rgb(228, 227, 227) ;
+    background-color:rgb(214, 182, 176) ;
     width: 20%;
     padding: 1em;
 
 }
 .box{
-    border:1px solid rgb(173, 146, 122);
+    border:1px solid rgb(214, 182, 176) ;
     height:50px;
     width:50px;
     margin :0;
@@ -28,14 +28,14 @@ section {
     justify-content: center;
 
 }
+
 .player1{
-    background-image: url('images/player1.jpg');
+    background-image: url('images/player1.png');
     background-size: 100%;
     
 }
 .player2{
     background-image: url('images/player2.png');
-    background-color: rgba(189, 132, 122, 0.3);
     background-size: 100%;
 }
 #player1,#player2{
@@ -44,36 +44,28 @@ section {
 .result, .button{
     padding: 0 0.4em;
     font-family: 'Rock Salt', cursive;
-    
     margin: 0 1em;
     height:80%;
     vertical-align: center;
 }
 .button{
-    border:1px solid  rgb(189, 132, 122); 
-    font-size: 0.8em;
+    /* border:1px solid  rgb(214, 182, 176) ; */
+    background-color: antiquewhite;
     border-radius: 0.4em;
-    display: inline-block;
-
-
-
+    width: 20%;
+    margin:0 auto;
 }
-.hidden{
-    display: none;
-}
-.display{
-    display:flex;
-}
+
 .gameboard-section{
-    border:none;
     width: 50%;
 }
 img {
     height:100%;
     width:100%;
+    background-size: cover;
+    background-repeat: no-repeat;
 }
 .currentplayer{
-    padding : 10% 0;
     text-align: center;
 }
 .header-img{
@@ -81,5 +73,30 @@ img {
     width: 60%;  
 }
 header{
-text-align: center;
+    text-align: center;
+}
+footer{
+    padding: 3%;
+    position: relative;
+    font-size: 90%;
+   
+}
+.logo{
+    height: 25px;
+    width:25px;
+    
+}
+.small-logo{
+    height:12px;
+    width:12px;
+}
+
+.gameinfo{
+    height:40px;
+    margin-top:10px;
+    vertical-align: center;
+    text-align: center;
+}
+.hidden{
+    display: none;
 }

@@ -29,8 +29,9 @@ function clickedBox(event){
     checkWiner("player2");
 
     if (((score.totalRounds%2===0&&counter===9)||(score.totalRounds%2===1&&counter===10))&&!checkWiner("player1")&&!checkWiner("player2")){
-        document.querySelector('.result').textContent = 'nobody won'
-        document.querySelector('.hidden').classList.add('display');
+        document.querySelector('.result').textContent = 'nobody won this round'
+        document.querySelector(".result-and-reset").classList.remove('hidden');
+        document.querySelector('.currentplayer').classList.add('hidden');
     }
 
     displayCurrentPlayer();
@@ -55,7 +56,8 @@ function checkWiner(player){
             document.querySelectorAll('.box').forEach(function(a){
                 a.removeEventListener('click',clickedBox);
             })
-            document.querySelector('.hidden').classList.add('display');
+            document.querySelector(".result-and-reset").classList.remove('hidden');
+            document.querySelector('.currentplayer').classList.add('hidden');
             return true;
         }
     }
@@ -63,21 +65,20 @@ function checkWiner(player){
 
 function resetGame(){
     score.totalRounds +=1;
-    
     boxes.forEach(function(box){
         box.className = 'box';
         box.addEventListener('click',clickedBox);
     });
-    document.querySelector('.hidden').classList.remove('display');
+    document.querySelector(".result-and-reset").classList.add('hidden');
+    document.querySelector('.currentplayer').classList.remove('hidden');
     counter = score.totalRounds%2;
     displayCurrentPlayer();
 }
 
 function displayCurrentPlayer(){
     if(counter%2===0){
-        document.querySelector('.currentplayer').textContent = 'playing: player1'
+        document.querySelector('.currentplayer span').innerHTML = '<img src="images/player1.png" alt="current player logo" class ="small-logo">'
     } else {
-        document.querySelector('.currentplayer').textContent = 'playing: player2'
-        
+        document.querySelector('.currentplayer span').innerHTML ='<img src="images/player2.png" alt="current player logo" class ="small-logo">'
     }
 }
