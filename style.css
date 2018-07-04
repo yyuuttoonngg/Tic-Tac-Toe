@@ -13,7 +13,7 @@ main{
 section {
     background-color:rgb(214, 182, 176) ;
     width: 15%;
-    padding: 0 auto;
+    padding: 0 2%;;
 
 }
 .player1-section{
@@ -60,6 +60,8 @@ section {
     border-radius: 0.4em;
     width: 30%;
     margin:0 auto;
+    padding :0 0.5em;
+    text-align: center;
 }
 
 .gameboard-section{
@@ -83,7 +85,11 @@ header{
 footer{
     padding: 5%;
     margin-left: 10%
-   
+}
+
+footer img{
+    height:2em;
+    width:2em;
 }
 
 .logo{
@@ -107,6 +113,16 @@ footer{
 }
 .hidden{
     display: none;
+}
+.grab {
+    cursor: -webkit-grab; 
+    cursor: -moz-grab;
+    cursor: grab;
+}
+.grab:active {
+    cursor: -webkit-grabbing; 
+    cursor: -moz-grabbing;
+    cursor: grabbing;
 }
 
 @media(min-width:500px){
@@ -140,7 +156,7 @@ footer{
 }
 @media(min-width:900px){
     main{
-        font-size:1.8em;
+        font-size:1.7em;
     }   
     .player1-section,.player2-section{
         width:8%;
