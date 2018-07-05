@@ -11,6 +11,7 @@
 <body>
     <header>
         <img class="header-img" src="images/title.jpg" alt="TIC CAT TOE">
+        <p class ="highest-score" ></p>
         <audio loop src="audio/BGaudio.wav" autoplay ="false"> </audio>
     </header>
     <main>
@@ -18,8 +19,7 @@
             <p>player1</p>
             <img class= "logo"src="images/player1.png" alt="">
             <p>score: <span id="player1">0</span></p>
-        </section>
-            
+        </section>           
         <section class ="gameboard-section">
             <div class ="row1">
                 <p class="box grab">1</p>
@@ -36,27 +36,20 @@
                 <p class="box grab">8</p>
                 <p class="box grab">9</p>
             </div>
-
             <div class="gameinfo">
                 <div class = "currentplayer">playing <span ></span> </div>
                 <div class ="result-and-reset hidden">
                     <p class="result"></p>
                     <p class ="button grab reset">reset</p>
                 </div>
-            </div>
-            
+            </div>          
         </section>   
-
         <section class ="player2-section">
             <p>player 2</p>
             <img class= "logo" src="images/player2.png" alt="">
-            <p>score: <span id="player2">0</span></p>
-        </section>
-
-           
+            <p>score: <span id="player2">0</span></p>          
+        </section>         
     </main>
-
-
     <footer>
         <div class ="designer">
             <p>created by yyuuttoonngg
@@ -66,12 +59,8 @@
         <div class ="options">
             <p class ="newgame button grab">new game</p>
             <p class ="music button grab">no music</p>
-        </div>
-        
+        </div>      
     </footer>
-
-
-
     <script src="tic-tac-toe.js"></script>
 </body>
 </html>

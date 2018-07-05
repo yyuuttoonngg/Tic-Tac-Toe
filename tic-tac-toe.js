@@ -1,3 +1,4 @@
+
 console.log('tic-tac-toe');
 
 
@@ -10,15 +11,19 @@ var score ={
     player2:0,
     totalRounds:0
 }
+var highestScore;
 
 score.player1 = Number(localStorage.getItem('player1'));
 score.player2 = Number(localStorage.getItem('player2'));
 score.totalRounds = Number(localStorage.getItem('totalRounds'));
+highestScore = Number(localStorage.getItem('highestScore'));
+
 var counter = score.totalRounds%2;
 var musicCounter = 0;
 
 document.querySelector('#player1').textContent = score.player1;
 document.querySelector('#player2').textContent = score.player2;
+document.querySelector('.highest-score').textContent = 'Record Score: '+highestScore;
 
 boxes.forEach(function(box){
     box.addEventListener('click',clickedBox);
@@ -52,6 +57,7 @@ function clickedBox(event){
     localStorage.setItem('player1',score.player1);
     localStorage.setItem('player2',score.player2);
     localStorage.setItem('totalRounds',score.totalRounds);
+    localStorage.setItem('highestScore', highestScore);
 
     displayCurrentPlayer();
  
@@ -78,6 +84,8 @@ function checkWiner(player){
             })
             document.querySelector(".result-and-reset").classList.remove('hidden');
             document.querySelector('.currentplayer').classList.add('hidden');
+            highestScore = Math.max(score.player1,score.player2,highestScore);
+            document.querySelector('.highest-score').textContent = 'Record Score: '+highestScore;
             return true;
         }
     }
