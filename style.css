@@ -84,7 +84,7 @@ header{
 }
 footer{
     padding: 5%;
-    margin-left: 10%
+    margin-left: 5%
 }
 
 footer img{
@@ -125,7 +125,7 @@ footer img{
     cursor: grabbing;
 }
 
-@media(min-width:500px){
+@media(min-width:400px){
     .player1-section,.player2-section{
         width:12%;
     }

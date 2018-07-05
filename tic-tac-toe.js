@@ -1,5 +1,7 @@
 console.log('tic-tac-toe');
 
+
+
 var boxes = document.querySelectorAll('.box');
 var counter = 0;
 var winnerArray = ['123','147','456','258','789','369','357','159'];
@@ -9,6 +11,13 @@ var score ={
     totalRounds:0
 }
 
+score.player1 = Number(localStorage.getItem('player1'));
+score.player2 = Number(localStorage.getItem('player2'));
+score.totalRounds = Number(localStorage.getItem('totalRounds'));
+var counter = score.totalRounds%2;
+
+document.querySelector('#player1').textContent = score.player1;
+document.querySelector('#player2').textContent = score.player2;
 
 boxes.forEach(function(box){
     box.addEventListener('click',clickedBox);
@@ -16,6 +25,7 @@ boxes.forEach(function(box){
 });
 
 document.querySelector('.button').addEventListener('click',resetGame);
+document.querySelector('.newgame').addEventListener('click',newGame);
 
 function clickedBox(event){
     event.target.removeEventListener('click',clickedBox);
@@ -25,14 +35,20 @@ function clickedBox(event){
         event.target.classList.add('player2');
     }
     counter +=1; 
+
     checkWiner("player1");
     checkWiner("player2");
 
     if (((score.totalRounds%2===0&&counter===9)||(score.totalRounds%2===1&&counter===10))&&!checkWiner("player1")&&!checkWiner("player2")){
+        score.totalRounds +=1;
         document.querySelector('.result').textContent = 'nobody won this round'
         document.querySelector(".result-and-reset").classList.remove('hidden');
         document.querySelector('.currentplayer').classList.add('hidden');
     }
+
+    localStorage.setItem('player1',score.player1);
+    localStorage.setItem('player2',score.player2);
+    localStorage.setItem('totalRounds',score.totalRounds);
 
     displayCurrentPlayer();
  
@@ -51,6 +67,7 @@ function checkWiner(player){
         (string.slice(0,2)+string.slice(3))===winnerArray[i] ||
         string ==='12569'|| string==='23457' || string==='35678'||string ==='14589'){
             score[player] += 1;
+            score.totalRounds +=1;
             document.querySelector('.result').textContent = 'winner is ' + player;
             document.querySelector('#'+player).textContent = score[player];
             document.querySelectorAll('.box').forEach(function(a){
@@ -64,7 +81,6 @@ function checkWiner(player){
 }
 
 function resetGame(){
-    score.totalRounds +=1;
     boxes.forEach(function(box){
         box.className = 'box';
         box.addEventListener('click',clickedBox);
@@ -81,4 +97,17 @@ function displayCurrentPlayer(){
     } else {
         document.querySelector('.currentplayer span').innerHTML ='<img src="images/player2.png" alt="current player logo" class ="small-logo">'
     }
+}
+
+function newGame(){
+    localStorage.player1 = '0';
+    localStorage.player2 = '0';
+    localStorage.totalRounds = '0';
+    score.player1=0;
+    score.player2=0;
+    score.totalRounds=0;
+    resetGame();
+    document.querySelector('#player1').textContent = score.player1;
+    document.querySelector('#player2').textContent = score.player2;
+
 }
