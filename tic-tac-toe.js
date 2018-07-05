@@ -15,6 +15,7 @@ score.player1 = Number(localStorage.getItem('player1'));
 score.player2 = Number(localStorage.getItem('player2'));
 score.totalRounds = Number(localStorage.getItem('totalRounds'));
 var counter = score.totalRounds%2;
+var musicCounter = 0;
 
 document.querySelector('#player1').textContent = score.player1;
 document.querySelector('#player2').textContent = score.player2;
@@ -26,6 +27,8 @@ boxes.forEach(function(box){
 
 document.querySelector('.button').addEventListener('click',resetGame);
 document.querySelector('.newgame').addEventListener('click',newGame);
+document.querySelector('.music').addEventListener('click',controlMusic);
+document.querySelector('footer img').addEventListener('click',meow);
 
 function clickedBox(event){
     event.target.removeEventListener('click',clickedBox);
@@ -109,5 +112,20 @@ function newGame(){
     resetGame();
     document.querySelector('#player1').textContent = score.player1;
     document.querySelector('#player2').textContent = score.player2;
+}
 
+function controlMusic(){
+    musicCounter +=1;
+    if(musicCounter%2===1){
+        document.querySelector('header audio').play();
+        document.querySelector('.music').textContent = 'music on'
+
+    } else{
+        document.querySelector('header audio').pause();
+        document.querySelector('.music').textContent = 'no music'
+    }
+}
+
+function meow(){
+    document.querySelector('footer audio').play();
 }
