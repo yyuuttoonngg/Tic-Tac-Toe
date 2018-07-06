@@ -11,6 +11,7 @@ var score ={
     player2:0,
     totalRounds:0
 }
+document.querySelector('header audio').pause();
 var highestScore;
 
 score.player1 = Number(localStorage.getItem('player1'));
