@@ -7,7 +7,7 @@ Features:
 - Use local storage for players' scores and highest score record;
 - Responsive design to fit different screen size;
 - Optional background music and sound effect;
-
+- Timer for each move;
 
 
 
