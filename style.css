@@ -148,6 +148,11 @@ footer img{
     right: -10%;
     bottom: 0%;
 }
+.timer {
+    position: relative;
+    bottom: 1em;
+
+}
 
 @media(min-width:400px){
     main{
