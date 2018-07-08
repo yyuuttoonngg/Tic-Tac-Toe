@@ -1,42 +1,56 @@
-
 console.log('tic-tac-toe');
-
+document.querySelector('header audio').pause();
 
 
 var boxes = document.querySelectorAll('.box');
 var counter = 0;
+var musicCounter = 0;
 var winnerArray = ['123','147','456','258','789','369','357','159'];
 var score ={
     player1:0,
     player2:0,
-    totalRounds:0
+    totalRounds:0,
+    highestScore:0
+};
+var timerID;
+var timerbtn = document.querySelector('.timer');
+var resultAndResetArea = document.querySelector(".result-and-reset");
+var currentPlayerArea =  document.querySelector('.currentplayer');
+var resultArea = document.querySelector('.result');
+
+
+function onload(){
+    getStorage();
+    displayScore();
+    boxes.forEach(function(box){
+        box.addEventListener('click',clickedBox);
+        displayCurrentPlayer();
+    });
+    document.querySelector('.reset').addEventListener('click',resetGame);
+    document.querySelector('.newgame').addEventListener('click',newGame);
+    document.querySelector('.music').addEventListener('click',controlMusic);
+    document.querySelector('footer img').addEventListener('click',meow); 
 }
-document.querySelector('header audio').pause();
-var highestScore;
+onload();
 
-score.player1 = Number(localStorage.getItem('player1'));
-score.player2 = Number(localStorage.getItem('player2'));
-score.totalRounds = Number(localStorage.getItem('totalRounds'));
-highestScore = Number(localStorage.getItem('highestScore'));
 
-var counter = score.totalRounds%2;
-var musicCounter = 0;
+function getStorage(){
+    score.player1 = Number(localStorage.getItem('player1'));
+    score.player2 = Number(localStorage.getItem('player2'));
+    score.totalRounds = Number(localStorage.getItem('totalRounds'));
+    score.highestScore = Number(localStorage.getItem('highestScore'));
+}
 
-document.querySelector('#player1').textContent = score.player1;
-document.querySelector('#player2').textContent = score.player2;
-document.querySelector('.highest-score').textContent = 'Record Score: '+highestScore;
-
-boxes.forEach(function(box){
-    box.addEventListener('click',clickedBox);
-    displayCurrentPlayer();
-});
-
-document.querySelector('.button').addEventListener('click',resetGame);
-document.querySelector('.newgame').addEventListener('click',newGame);
-document.querySelector('.music').addEventListener('click',controlMusic);
-document.querySelector('footer img').addEventListener('click',meow);
+function displayScore(){
+    document.querySelector('#player1').textContent = score.player1;
+    document.querySelector('#player2').textContent = score.player2;
+    document.querySelector('.highest-score').textContent = 'Record Score: '+score.highestScore;
+}
 
 function clickedBox(event){
+    clearTimeout( timerID );
+    timerbtn.classList.remove('hidden');
+    timer(10);
     event.target.removeEventListener('click',clickedBox);
     if (counter%2===0){
         event.target.classList.add('player1');
@@ -44,21 +58,21 @@ function clickedBox(event){
         event.target.classList.add('player2');
     }
     counter +=1; 
-
     checkWiner("player1");
     checkWiner("player2");
 
     if (((score.totalRounds%2===0&&counter===9)||(score.totalRounds%2===1&&counter===10))&&!checkWiner("player1")&&!checkWiner("player2")){
         score.totalRounds +=1;
-        document.querySelector('.result').textContent = 'nobody won this round'
-        document.querySelector(".result-and-reset").classList.remove('hidden');
-        document.querySelector('.currentplayer').classList.add('hidden');
+        resultArea.textContent = 'nobody won this round'
+        resultAndResetArea.classList.remove('hidden');
+        currentPlayerArea.classList.add('hidden');
+        clearTimeout( timerID );
+        timerbtn.classList.add('hidden');
     }
-
     localStorage.setItem('player1',score.player1);
     localStorage.setItem('player2',score.player2);
     localStorage.setItem('totalRounds',score.totalRounds);
-    localStorage.setItem('highestScore', highestScore);
+    localStorage.setItem('highestScore', score.highestScore);
 
     displayCurrentPlayer();
  
@@ -78,27 +92,30 @@ function checkWiner(player){
         string ==='12569'|| string==='23457' || string==='35678'||string ==='14589'){
             score[player] += 1;
             score.totalRounds +=1;
-            document.querySelector('.result').textContent = 'winner is ' + player;
-            document.querySelector('#'+player).textContent = score[player];
-            document.querySelectorAll('.box').forEach(function(a){
+            resultArea.textContent = 'winner is ' + player;
+            boxes.forEach(function(a){
                 a.removeEventListener('click',clickedBox);
             })
-            document.querySelector(".result-and-reset").classList.remove('hidden');
-            document.querySelector('.currentplayer').classList.add('hidden');
-            highestScore = Math.max(score.player1,score.player2,highestScore);
-            document.querySelector('.highest-score').textContent = 'Record Score: '+highestScore;
+            resultAndResetArea.classList.remove('hidden');
+            currentPlayerArea.classList.add('hidden');
+            score.highestScore = Math.max(score.player1,score.player2,score.highestScore);
+            displayScore();
+            clearTimeout( timerID );
+            timerbtn.classList.add('hidden');
             return true;
         }
     }
 }
 
 function resetGame(){
+    clearTimeout( timerID );
     boxes.forEach(function(box){
         box.className = 'box';
         box.addEventListener('click',clickedBox);
     });
-    document.querySelector(".result-and-reset").classList.add('hidden');
-    document.querySelector('.currentplayer').classList.remove('hidden');
+    resultAndResetArea.classList.add('hidden');
+    currentPlayerArea.classList.remove('hidden');
+
     counter = score.totalRounds%2;
     displayCurrentPlayer();
 }
@@ -119,8 +136,7 @@ function newGame(){
     score.player2=0;
     score.totalRounds=0;
     resetGame();
-    document.querySelector('#player1').textContent = score.player1;
-    document.querySelector('#player2').textContent = score.player2;
+    displayScore();
 }
 
 function controlMusic(){
@@ -137,4 +153,27 @@ function controlMusic(){
 
 function meow(){
     document.querySelector('footer audio').play();
+}
+
+function timer(a){
+    if (a>0){
+        
+        timerbtn.textContent = 'time left: '+ a;
+        console.log(a)
+        timerID =setTimeout(()=>{
+        timer(a-1);
+        },1000);
+    }
+    if (a===0){
+            console.log('times up');
+            timerbtn.textContent = 'times up, lost 0.5 score';       
+        if (counter%2===0){
+            score.player1-=0.5;
+        } else{
+            score.player2-=0.5;
+        }
+        displayScore();
+        localStorage.player1 =score.player1;
+        localStorage.player2 =score.player2;
+    }
 }
